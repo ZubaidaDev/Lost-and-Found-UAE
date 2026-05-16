@@ -1,72 +1,63 @@
-# Lost and Found UAE
-
-Mobile Application Development Group Project
-
-## Project Idea
-Lost and Found UAE is an Android mobile application that allows users to report lost items and found items. Users can add item details, search items using keywords, and view saved reports.
-
-This project will use:
-- Java
-- XML
-- SQLite database
-
-The project requirements include Java/XML files, SQLite, screenshots, report, video demonstration, and final Blackboard submission. :contentReference[oaicite:0]{index=0}
-
----
-
 ## Team Work Plan
 
-### Member 1: UI and XML Design
+### Person 1: Main Screen, Menu, and Search
+
 Responsible for:
-- Designing app screens
-- XML layouts
-- Buttons, text fields, colors, and layout structure
-- Screenshots for report
-
-Main files:
-- activity_main.xml
-- activity_add_lost_item.xml
-- activity_add_found_item.xml
-- activity_search.xml
-
----
-
-### Member 2: Java Logic and Navigation
-Responsible for:
-- Java activity files
-- Button actions
-- Moving between screens
-- Form validation
-- Displaying item details
+- Main app structure
+- MainActivity
+- Options menu with 3 dots
+- Search screen
+- Search results list
+- Item result layout
 
 Main files:
 - MainActivity.java
-- AddLostItemActivity.java
-- AddFoundItemActivity.java
-- SearchActivity.java
-- ItemDetailsActivity.java
+- SearchFragment.java
+- ItemAdapter.java
+- activity_main.xml
+- fragment_search.xml
+- item_result.xml
+- res/menu/main_menu.xml
 
 ---
 
-### Member 3: SQLite, Report, and Video
+### Person 2: Report Lost Item and Database
+
 Responsible for:
-- SQLite database
-- Insert, update, delete, and search functions
-- Final report
-- Screenshots
-- Google Drive video link
+- Report Lost Item screen
+- Lost item form
+- Saving lost item data into SQLite
+- DatabaseHelper class
+- AndroidManifest.xml setup
 
 Main files:
+- ReportLostFragment.java
 - DatabaseHelper.java
-- Report document
-- Video demonstration
+- fragment_report_lost.xml
+- AndroidManifest.xml
 
 ---
 
-## Important GitHub Rules
+### Person 3: Report Found Item and Data Sending
 
-### Before starting work
-Always pull the latest version first.
+Responsible for:
+- Report Found Item screen
+- Found item form
+- Sending submitted data back to SearchFragment
+- Bundle and Interface communication
 
-```bash
-git pull
+Main files:
+- ReportFoundFragment.java
+- fragment_report_found.xml
+
+---
+
+## App Menu Structure
+
+The app will use a 3 dots menu with these options:
+
+```text
+Menu
+├── Report Lost
+├── Report Found
+└── Search
