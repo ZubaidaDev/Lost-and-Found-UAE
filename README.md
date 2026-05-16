@@ -9,7 +9,7 @@ Lost and Found UAE is an Android mobile application that allows users to report 
 Users can:
 - Report a lost item
 - Report a found item
-- Search for items using keywords
+- Search for items
 - View item details
 
 This project will use:
@@ -25,61 +25,74 @@ We will use Android Studio to build and test the application.
 
 GitHub will be used to share the project files and manage teamwork.
 
-GitHub Codespaces is not required for this project because Android apps are easier to develop and test using Android Studio with an emulator or a real Android phone.
+GitHub Codespaces is not required because Android apps are easier to develop and test using Android Studio with an emulator or a real Android phone.
 
 ---
 
 ## Team Work Plan
 
-### Person 1: Main Screen, Menu, and Search
+### Person 1: Search Screen
 
 Responsible for:
-- Main app structure
-- MainActivity
-- Options menu with 3 dots
+- Main app screen
+- Menu navigation
 - Search screen
-- Search results list
-- Item result layout
+- Search button logic
+- Connecting screens together
 
-Main files:
+Files:
 - MainActivity.java
 - SearchFragment.java
-- ItemAdapter.java
 - activity_main.xml
 - fragment_search.xml
-- item_result.xml
-- res/menu/main_menu.xml
+- main_menu.xml
 
 ---
 
-### Person 2: Report Lost Item and Database
+### Person 2: Database and Adapter
 
 Responsible for:
-- Report Lost Item screen
-- Lost item form
-- Saving lost item data into SQLite
-- DatabaseHelper class
-- AndroidManifest.xml setup
+- SQLite database
+- Item model class
+- Search results display
+- Adapter for showing items
+- Manifest setup
 
-Main files:
-- ReportLostFragment.java
+Files:
 - DatabaseHelper.java
-- fragment_report_lost.xml
+- ItemAdapter.java
+- Item.java
 - AndroidManifest.xml
+- item_result.xml
 
 ---
 
-### Person 3: Report Found Item and Data Sending
+### Person 3: Report Lost and Found
 
 Responsible for:
-- Report Found Item screen
-- Found item form
-- Sending submitted data back to SearchFragment
-- Bundle and Interface communication
+- Report Lost form
+- Report Found form
+- Taking user input
+- Sending form data to the database
+- Helping with screenshots, report, and video demonstration
 
-Main files:
+Files:
+- ReportLostFragment.java
 - ReportFoundFragment.java
+- fragment_report_lost.xml
 - fragment_report_found.xml
+
+---
+
+## Balance Check
+
+| Person | Java Files | XML Files | Total |
+|---|---:|---:|---:|
+| Person 1 | 2 | 3 | 5 |
+| Person 2 | 3 | 2 | 5 |
+| Person 3 | 2 | 2 | 4 |
+
+This division is simple and balanced enough for a student-level project.
 
 ---
 
@@ -91,18 +104,20 @@ The app will use a 3 dots menu with these options:
 Menu
 ├── Report Lost
 ├── Report Found
-└── Search
+├── Search
+└── About
 ```
 
 ---
 
-## Work Balance
+## App Flow
 
-| Person | Java Files | XML Files | Difficulty |
-|---|---:|---:|---|
-| Person 1 | 3 | 3 | Medium |
-| Person 2 | 2 | 2 | Medium |
-| Person 3 | 1 | 1 + Interface | Medium |
+```text
+Report Lost → Save to SQLite
+Report Found → Save to SQLite
+Search → Read from SQLite
+Search Result → Show item details
+```
 
 ---
 
@@ -158,12 +173,12 @@ git push
 
 ## Suggested Screens
 
-1. Home Screen
+1. Home / Search Screen
 2. Report Lost Item Screen
 3. Report Found Item Screen
-4. Search Items Screen
+4. Search Results Screen
 5. Item Details Screen
-6. About App Screen
+6. About Screen
 
 ---
 
