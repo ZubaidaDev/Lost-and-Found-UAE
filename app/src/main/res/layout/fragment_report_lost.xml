@@ -74,6 +74,17 @@
                 android:textSize="16sp"
                 android:layout_marginTop="15dp" />
 
+            <EditText
+                android:id="@+id/input_date"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="#FFFFFF"
+                android:hint="Date (e.g. 25/05/2026)"
+                android:padding="15dp"
+                android:textSize="16dp"
+                android:layout_marginTop="15dp"
+                android:inputType="text" />
+
             <Button
                 android:id="@+id/btn_submit"
                 android:layout_width="match_parent"

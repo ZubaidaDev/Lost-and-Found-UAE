@@ -7,55 +7,61 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class ReportLostFragment extends Fragment {
 
-    private EditText inputName, inputDescription, inputLocation;
+    private EditText inputName, inputDescription, inputLocation, inputDate;
     private Button btnSubmit;
     private DatabaseHelper dbHelper;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_report_lost, container, false);
 
-        inputName        = view.findViewById(R.id.input_item_name);
+        inputName = view.findViewById(R.id.input_item_name);
         inputDescription = view.findViewById(R.id.input_description);
-        inputLocation    = view.findViewById(R.id.input_location);
-        btnSubmit        = view.findViewById(R.id.btn_submit);
+        inputLocation = view.findViewById(R.id.input_location);
+        inputDate = view.findViewById(R.id.input_date);
+        btnSubmit = view.findViewById(R.id.btn_submit);
 
         dbHelper = new DatabaseHelper(getContext());
 
-        btnSubmit.setOnClickListener(v -> submitReport());
+        ButtonHandler bh = new ButtonHandler();
+        btnSubmit.setOnClickListener(bh);
 
         return view;
     }
 
     private void submitReport() {
-        String name        = inputName.getText().toString().trim();
-        String description = inputDescription.getText().toString().trim();
-        String location    = inputLocation.getText().toString().trim();
+        String name = inputName.getText().toString();
+        String description = inputDescription.getText().toString();
+        String location = inputLocation.getText().toString();
+        String date = inputDate.getText().toString();
 
-        // Basic validation
-        if (name.isEmpty() || description.isEmpty() || location.isEmpty()) {
-            Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+        if (name.isEmpty() || description.isEmpty() || location.isEmpty() || date.isEmpty()) {
+            Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_LONG).show();
             return;
         }
 
-        // Get today's date
-        String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+        Item item = new Item(0, name, description, location, date, "lost");
+        dbHelper.insertItem(item);
 
-        // Save to SQLite
-        dbHelper.insertLostItem(name, description, location, date);
+        Toast.makeText(getContext(), "Lost item reported successfully", Toast.LENGTH_LONG).show();
 
-        Toast.makeText(getContext(), "Lost item reported successfully", Toast.LENGTH_SHORT).show();
-
-        // Clear fields
         inputName.setText("");
         inputDescription.setText("");
         inputLocation.setText("");
+        inputDate.setText("");
+    }
+
+    private class ButtonHandler implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            submitReport();
+        }
     }
 }

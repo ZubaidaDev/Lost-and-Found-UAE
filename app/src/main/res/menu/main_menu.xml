@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/menu_search"
         android:title="Search"
-        android:orderInCategory="1"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_report_lost"
         android:title="Report Lost"
-        android:orderInCategory="2"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menu_report_found"
         android:title="Report Found"
-        android:orderInCategory="3"/>
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_about"
+        android:title="About"
+        app:showAsAction="ifRoom" />
 
 </menu>
