@@ -1,7 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Base.Theme.LostAndFoundProject" parent="Theme.Material3.DayNight">
-        <!-- removed NoActionBar -->
+
+    <style name="Base.Theme.LostAndFoundUAE" parent="Theme.Material3.DayNight">
+        <!-- ActionBar enabled for 3 dots menu -->
     </style>
 
-    <style name="Theme.LostAndFoundProject" parent="Base.Theme.LostAndFoundProject" />
+    <style name="Theme.LostAndFoundUAE" parent="Base.Theme.LostAndFoundUAE" />
+
 </resources>
