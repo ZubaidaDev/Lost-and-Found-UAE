@@ -1,5 +1,5 @@
 package zubaida.begum.adu.ac.ae.lostandfounduae;
-
+private FusedLocationProviderClient fusedLocationClient;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
