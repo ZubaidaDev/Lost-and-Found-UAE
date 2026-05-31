@@ -55,6 +55,11 @@ public class ReportLostFragment extends Fragment {
         Item item = new Item(0, name, description, location, date, "lost");
         dbHelper.insertItem(item);
 
+        if (!isValidDate(date)) {
+            Toast.makeText(getContext(), "Date must be like 25/05/2026", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         Toast.makeText(getContext(), "Lost item reported successfully", Toast.LENGTH_LONG).show();
 
         inputName.setText("");

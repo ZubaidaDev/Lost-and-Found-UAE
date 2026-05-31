@@ -52,6 +52,11 @@ public class ReportFoundFragment extends Fragment {
             return;
         }
 
+        if (!isValidDate(date)) {
+            Toast.makeText(getContext(), "Date must be like 25/05/2026", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         Item item = new Item(0, name, description, location, date, "found");
         dbHelper.insertItem(item);
 
