@@ -23,24 +23,29 @@ public class ReportLostFragment extends Fragment {
     private DatabaseHelper dbHelper;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                         Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_report_lost, container, false);
+    View view = inflater.inflate(R.layout.fragment_report_lost, container, false);
 
-        inputName = view.findViewById(R.id.input_item_name);
-        inputDescription = view.findViewById(R.id.input_description);
-        inputLocation = view.findViewById(R.id.input_location);
-        inputDate = view.findViewById(R.id.input_date);
-        btnSubmit = view.findViewById(R.id.btn_submit);
+    inputName = view.findViewById(R.id.input_item_name);
+    inputDescription = view.findViewById(R.id.input_description);
+    inputLocation = view.findViewById(R.id.input_location);
+    inputDate = view.findViewById(R.id.input_date);
+    btnSubmit = view.findViewById(R.id.btn_submit);
 
-        dbHelper = new DatabaseHelper(getContext());
+    dbHelper = new DatabaseHelper(getContext());
 
-        ButtonHandler bh = new ButtonHandler();
-        btnSubmit.setOnClickListener(bh);
+    // EXTERNAL CODE (GPS FEATURE) 
+    // Source: Android Developers Documentation
+    
+    fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
-        return view;
-    }
+    ButtonHandler bh = new ButtonHandler();
+    btnSubmit.setOnClickListener(bh);
+
+    return view;
+}
 
     private void submitReport() {
         String name = inputName.getText().toString();
