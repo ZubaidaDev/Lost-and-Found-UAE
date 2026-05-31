@@ -10,7 +10,16 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import androidx.core.app.ActivityCompat;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+
 public class ReportFoundFragment extends Fragment {
+
+    private FusedLocationProviderClient fusedLocationClient;
 
     private EditText inputName, inputDescription, inputLocation, inputDate;
     private Button btnSubmit;
@@ -29,6 +38,10 @@ public class ReportFoundFragment extends Fragment {
         btnSubmit = view.findViewById(R.id.btn_submit);
 
         dbHelper = new DatabaseHelper(getContext());
+
+        // External code - GPS Android Developer (FusedLocationProviderClient)
+        fusedLocationClient =
+                LocationServices.getFusedLocationProviderClient(getActivity());
 
         ButtonHandler bh = new ButtonHandler();
         btnSubmit.setOnClickListener(bh);
@@ -58,9 +71,36 @@ public class ReportFoundFragment extends Fragment {
         inputDate.setText("");
     }
 
+    private void getLocation() {
+
+        if (ActivityCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            return;
+        }
+
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(getActivity(), location -> {
+
+                    if (location != null) {
+
+                        String latLng = location.getLatitude() + ", " + location.getLongitude();
+                        inputLocation.setText(latLng);
+
+                    } else {
+                        Toast.makeText(getContext(),
+                                "Location not available",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
     private class ButtonHandler implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            getLocation();
             submitReport();
         }
     }
