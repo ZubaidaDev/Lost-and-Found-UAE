@@ -17,8 +17,6 @@
             android:gravity="center"
             android:orientation="vertical">
 
-
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,7 +80,7 @@
                 android:background="#FFFFFF"
                 android:hint="Date (e.g. 25/05/2026)"
                 android:padding="15dp"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:layout_marginTop="15dp"
                 android:inputType="text" />
 
@@ -95,13 +93,7 @@
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#0B5D1E"
                 android:layout_marginTop="20dp" />
-           <Button
-               android:id="@+id/btn_get_location"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:text="Get GPS Location"
-               android:backgroundTint="#555"
-               android:textColor="#FFFFFF"
-               android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
