@@ -97,9 +97,10 @@ public class ReportLostFragment extends Fragment {
     }
 
     private class ButtonHandler implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            submitReport();
-        }
+    @Override
+    public void onClick(View view) {
+        getLocation();  
+        submitReport();  
+    }
     }
 }
