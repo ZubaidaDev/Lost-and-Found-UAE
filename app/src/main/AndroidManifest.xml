@@ -2,10 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    // external code
+ // EXTERNAL CODE (GPS FEATURE) 
+// Source: Android Developers Documentation
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    // external code 
+
     
     <application
         android:allowBackup="true"
