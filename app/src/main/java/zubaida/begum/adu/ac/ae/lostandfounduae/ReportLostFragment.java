@@ -7,8 +7,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.fragment.app.Fragment;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.widget.Toast;
+import androidx.core.app.ActivityCompat;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 
 public class ReportLostFragment extends Fragment {
 
