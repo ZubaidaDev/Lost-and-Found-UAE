@@ -1,5 +1,4 @@
 package zubaida.begum.adu.ac.ae.lostandfounduae;
-private FusedLocationProviderClient fusedLocationClient;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
 public class ReportLostFragment extends Fragment {
-
+    private FusedLocationProviderClient fusedLocationClient;
     private EditText inputName, inputDescription, inputLocation, inputDate;
     private Button btnSubmit;
     private DatabaseHelper dbHelper;
