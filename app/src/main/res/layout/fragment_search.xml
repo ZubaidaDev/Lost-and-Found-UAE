@@ -64,19 +64,36 @@
             android:backgroundTint="#0B5D1E"
             android:layout_marginTop="15dp" />
 
+        <Button
+            android:id="@+id/search_lost_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Search Lost Items"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#0B5D1E"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:id="@+id/search_found_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Search Found Items"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#0B5D1E"
+            android:layout_marginTop="10dp" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp">
 
-            <LinearLayout
-                android:id="@+id/results_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-
+        <LinearLayout
+            android:id="@+id/results_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
         </ScrollView>
-
     </LinearLayout>
-
 </LinearLayout>
