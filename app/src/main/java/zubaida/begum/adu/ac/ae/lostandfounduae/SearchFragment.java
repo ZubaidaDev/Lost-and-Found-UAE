@@ -16,6 +16,8 @@ public class SearchFragment extends Fragment {
 
     private EditText searchInput;
     private Button searchBtn;
+    private Button searchLostBtn;
+    private Button searchFoundBtn;
     private LinearLayout resultsLayout;
     private DatabaseHelper dbHelper;
 
@@ -27,6 +29,8 @@ public class SearchFragment extends Fragment {
 
         searchInput = view.findViewById(R.id.search_input);
         searchBtn = view.findViewById(R.id.search_btn);
+        searchLostBtn = view.findViewById(R.id.search_lost_btn);
+        searchFoundBtn = view.findViewById(R.id.search_found_btn);
         resultsLayout = view.findViewById(R.id.results_layout);
 
         dbHelper = new DatabaseHelper(getContext());
@@ -34,6 +38,8 @@ public class SearchFragment extends Fragment {
         updateView("");
 
         searchBtn.setOnClickListener(new ButtonHandler());
+        searchLostBtn.setOnClickListener(new LostButtonHandler());
+        searchFoundBtn.setOnClickListener(new FoundButtonHandler());
 
         return view;
     }
@@ -44,6 +50,60 @@ public class SearchFragment extends Fragment {
         ArrayList<Item> items = dbHelper.searchItems(keyword);
 
         for (Item item : items) {
+
+            LinearLayout itemLayout = new LinearLayout(getContext());
+            itemLayout.setOrientation(LinearLayout.VERTICAL);
+            itemLayout.setPadding(25, 20, 25, 20);
+            itemLayout.setBackgroundColor(0xFFFFFFFF);
+
+            TextView nameTV = new TextView(getContext());
+            nameTV.setText(item.getItemName());
+            nameTV.setTextSize(18);
+            nameTV.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+
+            TextView typeTV = new TextView(getContext());
+            typeTV.setText(item.getType().toUpperCase());
+            typeTV.setTextSize(14);
+            typeTV.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+
+            if (item.getType().equals("lost"))
+                typeTV.setTextColor(0xFFB00020);
+            else
+                typeTV.setTextColor(0xFF2E7D32);
+
+            TextView descTV = new TextView(getContext());
+            descTV.setText(item.getDescription());
+            descTV.setTextSize(15);
+
+            TextView locationTV = new TextView(getContext());
+            locationTV.setText("Location: " + item.getLocation());
+            locationTV.setTextSize(15);
+
+            TextView dateTV = new TextView(getContext());
+            dateTV.setText("Date: " + item.getDate());
+            dateTV.setTextSize(15);
+
+            itemLayout.addView(nameTV);
+            itemLayout.addView(typeTV);
+            itemLayout.addView(descTV);
+            itemLayout.addView(locationTV);
+            itemLayout.addView(dateTV);
+
+            resultsLayout.addView(itemLayout);
+        }
+    }
+
+    // NEW: filter by LOST or FOUND
+    public void updateViewByType(String keyword, String type) {
+        resultsLayout.removeAllViews();
+
+        ArrayList<Item> items = dbHelper.searchItems(keyword);
+
+        for (Item item : items) {
+
+            if (!item.getType().equals(type))
+                continue;
+
             LinearLayout itemLayout = new LinearLayout(getContext());
             itemLayout.setOrientation(LinearLayout.VERTICAL);
             itemLayout.setPadding(25, 20, 25, 20);
@@ -91,6 +151,22 @@ public class SearchFragment extends Fragment {
         public void onClick(View view) {
             String keyword = searchInput.getText().toString();
             updateView(keyword);
+        }
+    }
+
+    private class LostButtonHandler implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            String keyword = searchInput.getText().toString();
+            updateViewByType(keyword, "lost");
+        }
+    }
+
+    private class FoundButtonHandler implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            String keyword = searchInput.getText().toString();
+            updateViewByType(keyword, "found");
         }
     }
 }
