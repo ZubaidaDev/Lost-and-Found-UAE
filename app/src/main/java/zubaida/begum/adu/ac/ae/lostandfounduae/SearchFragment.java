@@ -15,7 +15,6 @@ import java.util.ArrayList;
 public class SearchFragment extends Fragment {
 
     private EditText searchInput;
-    private Button searchBtn;
     private Button searchLostBtn;
     private Button searchFoundBtn;
     private LinearLayout resultsLayout;
@@ -28,7 +27,6 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         searchInput = view.findViewById(R.id.search_input);
-        searchBtn = view.findViewById(R.id.search_btn);
         searchLostBtn = view.findViewById(R.id.search_lost_btn);
         searchFoundBtn = view.findViewById(R.id.search_found_btn);
         resultsLayout = view.findViewById(R.id.results_layout);
@@ -37,7 +35,6 @@ public class SearchFragment extends Fragment {
 
         updateView("");
 
-        searchBtn.setOnClickListener(new ButtonHandler());
         searchLostBtn.setOnClickListener(new LostButtonHandler());
         searchFoundBtn.setOnClickListener(new FoundButtonHandler());
 
@@ -93,7 +90,6 @@ public class SearchFragment extends Fragment {
         }
     }
 
-    // NEW: filter by LOST or FOUND
     public void updateViewByType(String keyword, String type) {
         resultsLayout.removeAllViews();
 
@@ -143,14 +139,6 @@ public class SearchFragment extends Fragment {
             itemLayout.addView(dateTV);
 
             resultsLayout.addView(itemLayout);
-        }
-    }
-
-    private class ButtonHandler implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            String keyword = searchInput.getText().toString();
-            updateView(keyword);
         }
     }
 
