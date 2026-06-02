@@ -10,15 +10,17 @@ import android.widget.EditText;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
 
     private EditText searchInput;
-    private Button searchLostBtn;
-    private Button searchFoundBtn;
+    private Button searchBtn, allBtn, lostBtn, foundBtn;
     private LinearLayout resultsLayout;
     private DatabaseHelper dbHelper;
+    private String currentType = "all";
+    private String lastKeyword = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,24 +29,50 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         searchInput = view.findViewById(R.id.search_input);
-        searchLostBtn = view.findViewById(R.id.search_lost_btn);
-        searchFoundBtn = view.findViewById(R.id.search_found_btn);
+        searchBtn = view.findViewById(R.id.search_btn);
+        allBtn = view.findViewById(R.id.all_btn);
+        lostBtn = view.findViewById(R.id.lost_btn);
+        foundBtn = view.findViewById(R.id.found_btn);
         resultsLayout = view.findViewById(R.id.results_layout);
 
         dbHelper = new DatabaseHelper(getContext());
 
-        updateView("");
+        SearchButtonHandler sbh = new SearchButtonHandler();
+        searchBtn.setOnClickListener(sbh);
 
-        searchLostBtn.setOnClickListener(new LostButtonHandler());
-        searchFoundBtn.setOnClickListener(new FoundButtonHandler());
+        FilterButtonHandler fbh = new FilterButtonHandler();
+        allBtn.setOnClickListener(fbh);
+        lostBtn.setOnClickListener(fbh);
+        foundBtn.setOnClickListener(fbh);
+
+        updateView("", "all");
 
         return view;
     }
 
-    public void updateView(String keyword) {
+    public void updateView(String keyword, String type) {
+
         resultsLayout.removeAllViews();
 
-        ArrayList<Item> items = dbHelper.searchItems(keyword);
+        lastKeyword = keyword;
+        currentType = type;
+
+        ArrayList<Item> items;
+
+        if (type.equals("lost"))
+            items = dbHelper.searchItemsByType(keyword, "lost");
+        else if (type.equals("found"))
+            items = dbHelper.searchItemsByType(keyword, "found");
+        else
+            items = dbHelper.searchItems(keyword);
+
+        if (items.isEmpty()) {
+            TextView emptyTV = new TextView(getContext());
+            emptyTV.setText("No active items found");
+            emptyTV.setTextSize(18);
+            emptyTV.setPadding(20, 20, 20, 20);
+            resultsLayout.addView(emptyTV);
+        }
 
         for (Item item : items) {
 
@@ -52,6 +80,11 @@ public class SearchFragment extends Fragment {
             itemLayout.setOrientation(LinearLayout.VERTICAL);
             itemLayout.setPadding(25, 20, 25, 20);
             itemLayout.setBackgroundColor(0xFFFFFFFF);
+
+            LinearLayout.LayoutParams itemParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            itemParams.setMargins(0, 0, 0, 20);
 
             TextView nameTV = new TextView(getContext());
             nameTV.setText(item.getItemName());
@@ -80,81 +113,71 @@ public class SearchFragment extends Fragment {
             dateTV.setText("Date: " + item.getDate());
             dateTV.setTextSize(15);
 
-            itemLayout.addView(nameTV);
-            itemLayout.addView(typeTV);
-            itemLayout.addView(descTV);
-            itemLayout.addView(locationTV);
-            itemLayout.addView(dateTV);
+            TextView imageTV = new TextView(getContext());
+            imageTV.setTextSize(15);
 
-            resultsLayout.addView(itemLayout);
-        }
-    }
+            if (item.getImageLink() != null && item.getImageLink().length() > 0)
+                imageTV.setText("Image: " + item.getImageLink());
+            else
+                imageTV.setText("Image: Not provided");
 
-    public void updateViewByType(String keyword, String type) {
-        resultsLayout.removeAllViews();
-
-        ArrayList<Item> items = dbHelper.searchItems(keyword);
-
-        for (Item item : items) {
-
-            if (!item.getType().equals(type))
-                continue;
-
-            LinearLayout itemLayout = new LinearLayout(getContext());
-            itemLayout.setOrientation(LinearLayout.VERTICAL);
-            itemLayout.setPadding(25, 20, 25, 20);
-            itemLayout.setBackgroundColor(0xFFFFFFFF);
-
-            TextView nameTV = new TextView(getContext());
-            nameTV.setText(item.getItemName());
-            nameTV.setTextSize(18);
-            nameTV.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-
-            TextView typeTV = new TextView(getContext());
-            typeTV.setText(item.getType().toUpperCase());
-            typeTV.setTextSize(14);
-            typeTV.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+            Button matchBtn = new Button(getContext());
+            matchBtn.setId(item.getId());
 
             if (item.getType().equals("lost"))
-                typeTV.setTextColor(0xFFB00020);
+                matchBtn.setText("I Found This");
             else
-                typeTV.setTextColor(0xFF2E7D32);
+                matchBtn.setText("This Is Mine");
 
-            TextView descTV = new TextView(getContext());
-            descTV.setText(item.getDescription());
-            descTV.setTextSize(15);
-
-            TextView locationTV = new TextView(getContext());
-            locationTV.setText("Location: " + item.getLocation());
-            locationTV.setTextSize(15);
-
-            TextView dateTV = new TextView(getContext());
-            dateTV.setText("Date: " + item.getDate());
-            dateTV.setTextSize(15);
+            MatchButtonHandler mbh = new MatchButtonHandler();
+            matchBtn.setOnClickListener(mbh);
 
             itemLayout.addView(nameTV);
             itemLayout.addView(typeTV);
             itemLayout.addView(descTV);
             itemLayout.addView(locationTV);
             itemLayout.addView(dateTV);
+            itemLayout.addView(imageTV);
+            itemLayout.addView(matchBtn);
 
-            resultsLayout.addView(itemLayout);
+            resultsLayout.addView(itemLayout, itemParams);
         }
     }
 
-    private class LostButtonHandler implements View.OnClickListener {
+    private class SearchButtonHandler implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             String keyword = searchInput.getText().toString();
-            updateViewByType(keyword, "lost");
+            updateView(keyword, currentType);
         }
     }
 
-    private class FoundButtonHandler implements View.OnClickListener {
+    private class FilterButtonHandler implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             String keyword = searchInput.getText().toString();
-            updateViewByType(keyword, "found");
+
+            if (view == allBtn)
+                updateView(keyword, "all");
+            else if (view == lostBtn)
+                updateView(keyword, "lost");
+            else if (view == foundBtn)
+                updateView(keyword, "found");
+        }
+    }
+
+    private class MatchButtonHandler implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            int itemId = view.getId();
+
+            dbHelper.updateStatusById(itemId, "pending");
+
+            Toast.makeText(getContext(),
+                    "Request sent to admin for review",
+                    Toast.LENGTH_LONG).show();
+
+            updateView(lastKeyword, currentType);
         }
     }
 }

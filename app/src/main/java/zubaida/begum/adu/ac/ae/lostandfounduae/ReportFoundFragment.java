@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 
 public class ReportFoundFragment extends Fragment {
 
-    private EditText inputName, inputDescription, inputLocation, inputDate;
+    private EditText inputName, inputDescription, inputLocation, inputDate, inputImageLink;
     private Button btnSubmit;
     private DatabaseHelper dbHelper;
 
@@ -26,6 +26,7 @@ public class ReportFoundFragment extends Fragment {
         inputDescription = view.findViewById(R.id.input_description);
         inputLocation = view.findViewById(R.id.input_location);
         inputDate = view.findViewById(R.id.input_date);
+        inputImageLink = view.findViewById(R.id.input_image_link);
         btnSubmit = view.findViewById(R.id.btn_submit);
 
         dbHelper = new DatabaseHelper(getContext());
@@ -41,9 +42,10 @@ public class ReportFoundFragment extends Fragment {
         String description = inputDescription.getText().toString();
         String location = inputLocation.getText().toString();
         String date = inputDate.getText().toString();
+        String imageLink = inputImageLink.getText().toString();
 
         if (name.isEmpty() || description.isEmpty() || location.isEmpty() || date.isEmpty()) {
-            Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Please fill all required fields", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -52,12 +54,9 @@ public class ReportFoundFragment extends Fragment {
             return;
         }
 
-        if (!isValidDate(date)) {
-            Toast.makeText(getContext(), "Date must be like 25/05/2026", Toast.LENGTH_LONG).show();
-            return;
-        }
+        Item item = new Item(0, name, description, location, date,
+                imageLink, "found", "active");
 
-        Item item = new Item(0, name, description, location, date, "found");
         dbHelper.insertItem(item);
 
         Toast.makeText(getContext(), "Found item reported successfully", Toast.LENGTH_LONG).show();
@@ -66,6 +65,7 @@ public class ReportFoundFragment extends Fragment {
         inputDescription.setText("");
         inputLocation.setText("");
         inputDate.setText("");
+        inputImageLink.setText("");
     }
 
     private boolean isValidDate(String date) {
@@ -87,7 +87,7 @@ public class ReportFoundFragment extends Fragment {
         int month = Integer.parseInt(date.substring(3, 5));
         int year = Integer.parseInt(date.substring(6, 10));
 
-        if (year < 2022 || year > 2027)
+        if (year < 2000)
             return false;
 
         if (month < 1 || month > 12)
