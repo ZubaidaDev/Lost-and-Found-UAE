@@ -1,20 +1,55 @@
 package zubaida.begum.adu.ac.ae.lostandfounduae;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
-
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
 public class ReportLostFragment extends Fragment {
 
-    private EditText inputName, inputDescription, inputLocation, inputDate, inputImageLink;
+    private EditText inputName, inputDescription, inputLocation, inputDate;
+
     private Button btnSubmit;
+    private Button btnPickImage;
+
+    private ImageView imagePreview;
+
     private DatabaseHelper dbHelper;
+
+    private String imageLink = "";
+
+    private ActivityResultLauncher<Intent> resultLauncher;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        resultLauncher =
+                registerForActivityResult(
+                        new ActivityResultContracts.StartActivityForResult(),
+                        result -> {
+
+                            if (result.getData() != null) {
+
+                                Uri imageUri = result.getData().getData();
+
+                                imageLink = imageUri.toString();
+
+                                if (imagePreview != null) {
+                                    imagePreview.setImageURI(imageUri);
+                                }
+                            }
+                        });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,10 +61,21 @@ public class ReportLostFragment extends Fragment {
         inputDescription = view.findViewById(R.id.input_description);
         inputLocation = view.findViewById(R.id.input_location);
         inputDate = view.findViewById(R.id.input_date);
-        inputImageLink = view.findViewById(R.id.input_image_link);
+
         btnSubmit = view.findViewById(R.id.btn_submit);
+        btnPickImage = view.findViewById(R.id.btnPickImage);
+
+        imagePreview = view.findViewById(R.id.imagePreview);
 
         dbHelper = new DatabaseHelper(getContext());
+
+        btnPickImage.setOnClickListener(v -> {
+
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+
+            resultLauncher.launch(intent);
+        });
 
         ButtonHandler bh = new ButtonHandler();
         btnSubmit.setOnClickListener(bh);
@@ -38,34 +84,52 @@ public class ReportLostFragment extends Fragment {
     }
 
     private void submitReport() {
+
         String name = inputName.getText().toString();
         String description = inputDescription.getText().toString();
         String location = inputLocation.getText().toString();
         String date = inputDate.getText().toString();
-        String imageLink = inputImageLink.getText().toString();
 
         if (name.isEmpty() || description.isEmpty() || location.isEmpty() || date.isEmpty()) {
-            Toast.makeText(getContext(), "Please fill all required fields", Toast.LENGTH_LONG).show();
+
+            Toast.makeText(getContext(),
+                    "Please fill all required fields",
+                    Toast.LENGTH_LONG).show();
             return;
         }
 
         if (!isValidDate(date)) {
-            Toast.makeText(getContext(), "Date must be like 25/05/2026", Toast.LENGTH_LONG).show();
+
+            Toast.makeText(getContext(),
+                    "Date must be like 25/05/2026",
+                    Toast.LENGTH_LONG).show();
             return;
         }
 
-        Item item = new Item(0, name, description, location, date,
-                imageLink, "lost", "active");
+        Item item = new Item(
+                0,
+                name,
+                description,
+                location,
+                date,
+                imageLink,
+                "lost",
+                "active"
+        );
 
         dbHelper.insertItem(item);
 
-        Toast.makeText(getContext(), "Lost item reported successfully", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(),
+                "Lost item reported successfully",
+                Toast.LENGTH_LONG).show();
 
         inputName.setText("");
         inputDescription.setText("");
         inputLocation.setText("");
         inputDate.setText("");
-        inputImageLink.setText("");
+
+        imagePreview.setImageDrawable(null);
+        imageLink = "";
     }
 
     private boolean isValidDate(String date) {
@@ -111,6 +175,7 @@ public class ReportLostFragment extends Fragment {
     }
 
     private class ButtonHandler implements View.OnClickListener {
+
         @Override
         public void onClick(View view) {
             submitReport();
