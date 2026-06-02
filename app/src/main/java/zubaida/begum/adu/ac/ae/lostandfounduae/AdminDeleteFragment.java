@@ -68,7 +68,7 @@ public class AdminDeleteFragment extends Fragment {
             RadioButton rb = new RadioButton(getContext());
             rb.setId(item.getId());
 
-            String text = item.getId() + " - " + item.getItemName();
+            String text =  item.getItemName();
             text += "\n" + item.getDescription();
             text += "\nLocation: " + item.getLocation();
             text += "\nDate: " + item.getDate();
