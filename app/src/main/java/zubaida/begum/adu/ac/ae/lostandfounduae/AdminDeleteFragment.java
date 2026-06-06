@@ -102,7 +102,7 @@ public class AdminDeleteFragment extends Fragment {
                 imageView.setImageURI(
                         Uri.parse(item.getImageLink()));
 
-                pendingLayout.addView(imageView);
+                group.addView(imageView);
             }
         }
 
