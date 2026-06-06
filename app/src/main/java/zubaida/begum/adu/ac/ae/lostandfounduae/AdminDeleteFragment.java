@@ -3,22 +3,18 @@ package zubaida.begum.adu.ac.ae.lostandfounduae;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 
 public class AdminDeleteFragment extends Fragment {
@@ -75,10 +71,6 @@ public class AdminDeleteFragment extends Fragment {
 
         for (Item item : items) {
 
-            LinearLayout itemLayout = new LinearLayout(getContext());
-            itemLayout.setOrientation(LinearLayout.VERTICAL);
-            itemLayout.setPadding(25, 20, 25, 20);
-
             RadioButton rb = new RadioButton(getContext());
             rb.setId(item.getId());
 
@@ -92,27 +84,26 @@ public class AdminDeleteFragment extends Fragment {
             rb.setTextSize(15);
             rb.setPadding(10, 15, 10, 15);
 
-            ImageView imageView = new ImageView(getContext());
-
-            LinearLayout.LayoutParams imageParams =
-                    new LinearLayout.LayoutParams(400, 400);
-
-            imageParams.setMargins(0, 15, 0, 15);
-
-            imageView.setLayoutParams(imageParams);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            group.addView(rb);
 
             if (item.getImageLink() != null &&
                     !item.getImageLink().isEmpty()) {
 
+                ImageView imageView = new ImageView(getContext());
+
+                LinearLayout.LayoutParams imageParams =
+                        new LinearLayout.LayoutParams(400, 400);
+
+                imageParams.setMargins(40, 0, 0, 20);
+
+                imageView.setLayoutParams(imageParams);
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
                 imageView.setImageURI(
                         Uri.parse(item.getImageLink()));
+
+                pendingLayout.addView(imageView);
             }
-
-            itemLayout.addView(rb);
-            itemLayout.addView(imageView);
-
-            group.addView(itemLayout);
         }
 
         RadioButtonHandler rbh = new RadioButtonHandler();
@@ -126,8 +117,7 @@ public class AdminDeleteFragment extends Fragment {
         @Override
         public void onClick(View view) {
 
-            String password =
-                    adminPassword.getText().toString();
+            String password = adminPassword.getText().toString();
 
             if (password.equals("1234")) {
 
