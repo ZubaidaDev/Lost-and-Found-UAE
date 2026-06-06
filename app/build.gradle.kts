@@ -4,11 +4,7 @@ plugins {
 
 android {
     namespace = "zubaida.begum.adu.ac.ae.lostandfounduae"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "zubaida.begum.adu.ac.ae.lostandfounduae"
@@ -43,4 +39,5 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation("com.google.android.gms:play-services-location:21.3.0")
 }

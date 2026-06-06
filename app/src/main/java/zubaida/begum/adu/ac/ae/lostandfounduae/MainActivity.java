@@ -3,7 +3,6 @@ package zubaida.begum.adu.ac.ae.lostandfounduae;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,8 +11,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        setContentView(R.layout.activity_main);
         setTitle("Lost and Found UAE");
 
         if (savedInstanceState == null) {
@@ -55,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new ReportFoundFragment())
+                    .commit();
+
+        } else if (id == R.id.menu_admin_delete) {
+            setTitle("Admin Delete");
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new AdminDeleteFragment())
                     .commit();
 
         } else if (id == R.id.menu_about) {

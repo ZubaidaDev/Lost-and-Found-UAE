@@ -4,18 +4,27 @@
 
     <item
         android:id="@+id/menu_search"
-        android:title="Search" />
+        android:title="Search"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_report_lost"
-        android:title="Report Lost" />
+        android:title="Report Lost"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_report_found"
-        android:title="Report Found" />
+        android:title="Report Found"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_admin_delete"
+        android:title="Admin Delete"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_about"
-        android:title="About" />
+        android:title="About"
+        app:showAsAction="never" />
 
 </menu>
