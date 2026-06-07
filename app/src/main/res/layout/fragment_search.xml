@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="Lost and Found UAE"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:textStyle="bold" />
 
         <TextView
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="Search Items"
             android:textColor="#FFFFFF"
-            android:textSize="34sp"
+            android:textSize="34dp"
             android:textStyle="bold"
             android:layout_marginTop="15dp" />
 
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:text="Search lost or found reports"
             android:textColor="#FFFFFF"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:layout_marginTop="10dp" />
     </LinearLayout>
 
@@ -51,7 +51,7 @@
             android:background="#FFFFFF"
             android:hint="Search by name, description or location"
             android:padding="15dp"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:inputType="text" />
 
         <Button
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="All"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#0B5D1E"
                 android:layout_marginRight="4dp" />
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Lost"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#0B5D1E"
                 android:layout_marginLeft="4dp"
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Found"
-                android:textSize="12sp"
+                android:textSize="12dp"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#0B5D1E"
                 android:layout_marginLeft="4dp" />
