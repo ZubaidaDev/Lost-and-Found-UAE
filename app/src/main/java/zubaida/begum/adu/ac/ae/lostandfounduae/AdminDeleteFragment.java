@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class AdminDeleteFragment extends Fragment {
 
-    private EditText adminPassword;
+    private EditText adminPasswordTxt;
     private Button loginBtn;
     private LinearLayout pendingLayout;
     private DatabaseHelper dbHelper;
@@ -32,9 +32,9 @@ public class AdminDeleteFragment extends Fragment {
         // connect fg with xml layout
         View view = inflater.inflate(R.layout.fragment_admin_delete, container, false);
 
-        adminPassword = view.findViewById(R.id.admin_password);
-        loginBtn = view.findViewById(R.id.admin_login_btn);
-        pendingLayout = view.findViewById(R.id.pending_layout);
+        adminPasswordTxt = view.findViewById(R.id.adminPasswordTxt);
+        loginBtn = view.findViewById(R.id.loginBtn);
+        pendingLayout = view.findViewById(R.id.pendingLayout);
 
         dbHelper = new DatabaseHelper(getContext());
 
@@ -127,7 +127,7 @@ public class AdminDeleteFragment extends Fragment {
         @Override
         public void onClick(View view) {
 
-            String password = adminPassword.getText().toString();//get admin password from input
+            String password = adminPasswordTxt.getText().toString();//get admin password from input
 
             if (password.equals("1234")) {
 

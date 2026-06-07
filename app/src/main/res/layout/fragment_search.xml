@@ -45,7 +45,7 @@
         android:padding="20dp">
 
         <EditText
-            android:id="@+id/search_input"
+            android:id="@+id/searchTxt"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:background="#FFFFFF"
@@ -55,7 +55,7 @@
             android:inputType="text" />
 
         <Button
-            android:id="@+id/search_btn"
+            android:id="@+id/searchBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Search"
@@ -71,7 +71,7 @@
             android:layout_marginTop="10dp">
 
             <Button
-                android:id="@+id/all_btn"
+                android:id="@+id/allBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -82,7 +82,7 @@
                 android:layout_marginRight="4dp" />
 
             <Button
-                android:id="@+id/lost_btn"
+                android:id="@+id/lostBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -94,7 +94,7 @@
                 android:layout_marginRight="4dp" />
 
             <Button
-                android:id="@+id/found_btn"
+                android:id="@+id/foundBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -111,7 +111,7 @@
             android:layout_marginTop="15dp">
 
             <LinearLayout
-                android:id="@+id/results_layout"
+                android:id="@+id/resultsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
 
-    private EditText searchInput;
+    private EditText searchTxt;
     private Button searchBtn, allBtn, lostBtn, foundBtn;
     private LinearLayout resultsLayout;
     private DatabaseHelper dbHelper;
@@ -29,25 +29,29 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        // connect fg with xml layout
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-        searchInput = view.findViewById(R.id.search_input);
-        searchBtn = view.findViewById(R.id.search_btn);
-        allBtn = view.findViewById(R.id.all_btn);
-        lostBtn = view.findViewById(R.id.lost_btn);
-        foundBtn = view.findViewById(R.id.found_btn);
-        resultsLayout = view.findViewById(R.id.results_layout);
+        searchTxt = view.findViewById(R.id.searchTxt);
+        searchBtn = view.findViewById(R.id.searchBtn);
+        allBtn = view.findViewById(R.id.allBtn);
+        lostBtn = view.findViewById(R.id.lostBtn);
+        foundBtn = view.findViewById(R.id.foundBtn);
+        resultsLayout = view.findViewById(R.id.resultsLayout);
 
         dbHelper = new DatabaseHelper(getContext());
 
+        // search btn handler
         SearchBtnHandler sbh = new SearchBtnHandler();
         searchBtn.setOnClickListener(sbh);
 
+        // filter btns handler
         FilterBtnHandler fbh = new FilterBtnHandler();
         allBtn.setOnClickListener(fbh);
         lostBtn.setOnClickListener(fbh);
         foundBtn.setOnClickListener(fbh);
 
+        // show all active items when screen opens
         updateView("", "all");
 
         return view;
@@ -55,6 +59,7 @@ public class SearchFragment extends Fragment {
 
     public void updateView(String keyword, String type) {
 
+        //clear old search results
         resultsLayout.removeAllViews();
 
         lastKeyword = keyword;
@@ -62,6 +67,7 @@ public class SearchFragment extends Fragment {
 
         ArrayList<Item> items;
 
+        // choose which search method to use
         if (type.equals("lost"))
             items = dbHelper.searchItemsByType(keyword, "lost");
         else if (type.equals("found"))
@@ -69,6 +75,7 @@ public class SearchFragment extends Fragment {
         else
             items = dbHelper.searchItems(keyword);
 
+        // show message if no items found
         if (items.isEmpty()) {
             TextView emptyTV = new TextView(getContext());
             emptyTV.setText("No active items found");
@@ -78,6 +85,7 @@ public class SearchFragment extends Fragment {
             return;
         }
 
+        // show each item in result list
         for (Item item : items) {
 
             LinearLayout itemLayout = new LinearLayout(getContext());
@@ -91,11 +99,13 @@ public class SearchFragment extends Fragment {
                             LinearLayout.LayoutParams.WRAP_CONTENT);
             itemParams.setMargins(0, 0, 0, 20);
 
+            // item name
             TextView nameTV = new TextView(getContext());
             nameTV.setText(item.getItemName());
             nameTV.setTextSize(18);
             nameTV.setTypeface(Typeface.DEFAULT_BOLD);
 
+            // lost or found type
             TextView typeTV = new TextView(getContext());
             typeTV.setText(item.getType().toUpperCase());
             typeTV.setTextSize(14);
@@ -115,6 +125,7 @@ public class SearchFragment extends Fragment {
             TextView dateTV = new TextView(getContext());
             dateTV.setText("Date: " + item.getDate());
 
+            // show selected image
             ImageView imageView = new ImageView(getContext());
 
             LinearLayout.LayoutParams imageParams =
@@ -129,6 +140,7 @@ public class SearchFragment extends Fragment {
                 imageView.setImageURI(Uri.parse(item.getImageLink()));
             }
 
+            // btn for match request
             Button matchBtn = new Button(getContext());
             matchBtn.setId(item.getId());
 
@@ -140,6 +152,7 @@ public class SearchFragment extends Fragment {
             MatchBtnHandler mbh = new MatchBtnHandler();
             matchBtn.setOnClickListener(mbh);
 
+            // add all views into one item layout
             itemLayout.addView(nameTV);
             itemLayout.addView(typeTV);
             itemLayout.addView(descTV);
@@ -155,7 +168,9 @@ public class SearchFragment extends Fragment {
     private class SearchBtnHandler implements View.OnClickListener { //inner class for search btn
         @Override
         public void onClick(View view) {
-            String keyword = searchInput.getText().toString();
+
+            // get keyword and search with current filter
+            String keyword = searchTxt.getText().toString();
             updateView(keyword, currentType);
         }
     }
@@ -163,7 +178,9 @@ public class SearchFragment extends Fragment {
     private class FilterBtnHandler implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            String keyword = searchInput.getText().toString();
+
+            //get keyword and apply selected filter
+            String keyword = searchTxt.getText().toString();
 
             if (view == allBtn) {
                 updateView(keyword, "all");
@@ -179,14 +196,17 @@ public class SearchFragment extends Fragment {
         @Override
         public void onClick(View view) {
 
+            // get item id from btn
             int itemId = view.getId();
 
+            // move item to pending list for admin
             dbHelper.updateStatusById(itemId, "pending");
 
             Toast.makeText(getContext(),
                     "Request sent to admin for review",
                     Toast.LENGTH_LONG).show();
 
+            // refresh result list
             updateView(lastKeyword, currentType);
         }
     }

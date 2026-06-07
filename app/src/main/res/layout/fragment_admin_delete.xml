@@ -24,7 +24,7 @@
         android:layout_marginTop="10dp" />
 
     <EditText
-        android:id="@+id/admin_password"
+        android:id="@+id/adminPasswordTxt"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="#FFFFFF"
@@ -35,7 +35,7 @@
         android:inputType="numberPassword" />
 
     <Button
-        android:id="@+id/admin_login_btn"
+        android:id="@+id/loginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"
@@ -50,7 +50,7 @@
         android:layout_marginTop="20dp">
 
         <LinearLayout
-            android:id="@+id/pending_layout"
+            android:id="@+id/pendingLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
