@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         //show search screen first when app starts
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, new SearchFragment())
+                    .add(R.id.myFragment, new SearchFragment())
                     .commit();
         }
     }
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
             // open search fg
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new SearchFragment())
+                    .replace(R.id.myFragment, new SearchFragment())
                     .commit();
 
         } else if (id == R.id.menu_report_lost) {
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
             //open lost item report fg
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new ReportLostFragment())
+                    .replace(R.id.myFragment, new ReportLostFragment())
                     .commit();
 
         } else if (id == R.id.menu_report_found) {
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
             //open found item report fg
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new ReportFoundFragment())
+                    .replace(R.id.myFragment, new ReportFoundFragment())
                     .commit();
 
         } else if (id == R.id.menu_admin_delete) {
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
             //open admin delete fg
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new AdminDeleteFragment())
+                    .replace(R.id.myFragment, new AdminDeleteFragment())
                     .commit();
 
         } else if (id == R.id.menu_about) {
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
             // open about fragment
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new AboutFragment())
+                    .replace(R.id.myFragment, new AboutFragment())
                     .commit();
         }
 
