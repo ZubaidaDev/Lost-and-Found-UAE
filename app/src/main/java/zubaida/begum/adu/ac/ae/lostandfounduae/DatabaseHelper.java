@@ -8,12 +8,11 @@ import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "LostFoundDB";
+    private static final String DATABASE_NAME = "LostFoundDB";    // database name and version
     private static final int DATABASE_VERSION = 2;
+    private static final String TABLE_ITEM = "items"; // table name
 
-    private static final String TABLE_ITEM = "items";
-
-    private static final String ID = "id";
+    private static final String ID = "id"; // col names
     private static final String NAME = "name";
     private static final String DESCRIPTION = "description";
     private static final String LOCATION = "location";
@@ -29,6 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
+        //create one table for both lost and found items
         String sqlCreate = "create table " + TABLE_ITEM;
         sqlCreate += "(" + ID + " integer primary key autoincrement, ";
         sqlCreate += NAME + " text, ";
@@ -44,6 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+        //del old table and create it again when version changes
         String dropTable = "drop table if exists " + TABLE_ITEM;
         db.execSQL(dropTable);
         onCreate(db);
@@ -51,8 +52,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insertItem(Item item) {
 
+        //open database for writing
         SQLiteDatabase db = this.getWritableDatabase();
 
+        // insert item details into table
         String sqlInsert = "insert into " + TABLE_ITEM;
         sqlInsert += " values(null, '";
         sqlInsert += item.getItemName() + "', '";
@@ -69,6 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<Item> searchItems(String keyword) {
 
+        // search all active item
         SQLiteDatabase db = this.getWritableDatabase();
 
         String sqlQuery = "select * from " + TABLE_ITEM;
@@ -83,6 +87,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ArrayList<Item> items = new ArrayList<>();
 
+        // convert each db row into Item object
         while (cursor.moveToNext()) {
 
             Item item = new Item(
@@ -107,6 +112,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<Item> searchItemsByType(String keyword, String type) {
 
+        // search active items based on lost or found type
         SQLiteDatabase db = this.getWritableDatabase();
 
         String sqlQuery = "select * from " + TABLE_ITEM;
@@ -122,6 +128,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ArrayList<Item> items = new ArrayList<>();
 
+        // add matching items to list
         while (cursor.moveToNext()) {
 
             Item item = new Item(
@@ -146,6 +153,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<Item> selectPendingItems() {
 
+        // get items that user reported for admin review
         SQLiteDatabase db = this.getWritableDatabase();
 
         String sqlQuery = "select * from " + TABLE_ITEM;
@@ -155,6 +163,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ArrayList<Item> items = new ArrayList<>();
 
+        // store pending items in ArrayList
         while (cursor.moveToNext()) {
 
             Item item = new Item(
@@ -179,6 +188,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void updateStatusById(int id, String status) {
 
+        //update item status, like from active to pending
         SQLiteDatabase db = this.getWritableDatabase();
 
         String sqlUpdate = "update " + TABLE_ITEM;
@@ -191,6 +201,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteById(int id) {
 
+        // del item using its id
         SQLiteDatabase db = this.getWritableDatabase();
 
         String sqlDelete = "delete from " + TABLE_ITEM;

@@ -29,6 +29,7 @@ public class AdminDeleteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        // connect fg with xml layout
         View view = inflater.inflate(R.layout.fragment_admin_delete, container, false);
 
         adminPassword = view.findViewById(R.id.admin_password);
@@ -37,6 +38,7 @@ public class AdminDeleteFragment extends Fragment {
 
         dbHelper = new DatabaseHelper(getContext());
 
+        // login btn handler
         ButtonHandler bh = new ButtonHandler();
         loginBtn.setOnClickListener(bh);
 
@@ -45,8 +47,10 @@ public class AdminDeleteFragment extends Fragment {
 
     public void updateView() {
 
+        //clear old pending items before showing again
         pendingLayout.removeAllViews();
 
+        // heading for pending list
         TextView headingTV = new TextView(getContext());
         headingTV.setText("Pending Items");
         headingTV.setTextSize(22);
@@ -55,10 +59,12 @@ public class AdminDeleteFragment extends Fragment {
 
         pendingLayout.addView(headingTV);
 
+        // get pending items from db
         ArrayList<Item> items = dbHelper.selectPendingItems();
 
         if (items.isEmpty()) {
 
+            // show message if no pending items
             TextView emptyTV = new TextView(getContext());
             emptyTV.setText("No pending items");
             emptyTV.setTextSize(18);
@@ -67,10 +73,12 @@ public class AdminDeleteFragment extends Fragment {
             return;
         }
 
+        // radio group used to select item for delete
         RadioGroup group = new RadioGroup(getContext());
 
         for (Item item : items) {
 
+            // create radio btn for each pending item
             RadioButton rb = new RadioButton(getContext());
             rb.setId(item.getId());
 
@@ -86,6 +94,7 @@ public class AdminDeleteFragment extends Fragment {
 
             group.addView(rb);
 
+            // show selected img from saved image uri
             if (item.getImageLink() != null &&
                     !item.getImageLink().isEmpty()) {
 
@@ -106,6 +115,7 @@ public class AdminDeleteFragment extends Fragment {
             }
         }
 
+        // del selected pending item
         RadioButtonHandler rbh = new RadioButtonHandler();
         group.setOnCheckedChangeListener(rbh);
 
@@ -117,7 +127,7 @@ public class AdminDeleteFragment extends Fragment {
         @Override
         public void onClick(View view) {
 
-            String password = adminPassword.getText().toString();
+            String password = adminPassword.getText().toString();//get admin password from input
 
             if (password.equals("1234")) {
 
@@ -127,7 +137,7 @@ public class AdminDeleteFragment extends Fragment {
                         "Admin login successful",
                         Toast.LENGTH_LONG).show();
 
-                updateView();
+                updateView(); //to show pending items after login
 
             } else {
 
@@ -146,7 +156,7 @@ public class AdminDeleteFragment extends Fragment {
                 RadioGroup group,
                 int checkedId) {
 
-            if (loggedIn) {
+            if (loggedIn) {// only admin can delete
 
                 dbHelper.deleteById(checkedId);
 
@@ -154,7 +164,7 @@ public class AdminDeleteFragment extends Fragment {
                         "Item deleted",
                         Toast.LENGTH_LONG).show();
 
-                updateView();
+                updateView();//refresh pending list after del
             }
         }
     }

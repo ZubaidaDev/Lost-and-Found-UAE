@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
@@ -33,22 +36,11 @@ public class ReportLostFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //used to get img selected from gallery
         resultLauncher =
                 registerForActivityResult(
                         new ActivityResultContracts.StartActivityForResult(),
-                        result -> {
-
-                            if (result.getData() != null) {
-
-                                Uri imageUri = result.getData().getData();
-
-                                imageLink = imageUri.toString();
-
-                                if (imagePreview != null) {
-                                    imagePreview.setImageURI(imageUri);
-                                }
-                            }
-                        });
+                        new ImageResultHandler());
     }
 
     @Override
@@ -69,14 +61,11 @@ public class ReportLostFragment extends Fragment {
 
         dbHelper = new DatabaseHelper(getContext());
 
-        btnPickImage.setOnClickListener(v -> {
+        //btn to choose img
+        PickImageHandler pih = new PickImageHandler();
+        btnPickImage.setOnClickListener(pih);
 
-            Intent intent = new Intent(Intent.ACTION_PICK);
-            intent.setType("image/*");
-
-            resultLauncher.launch(intent);
-        });
-
+        // button to save report
         ButtonHandler bh = new ButtonHandler();
         btnSubmit.setOnClickListener(bh);
 
@@ -85,11 +74,13 @@ public class ReportLostFragment extends Fragment {
 
     private void submitReport() {
 
+        //get user input
         String name = inputName.getText().toString();
         String description = inputDescription.getText().toString();
         String location = inputLocation.getText().toString();
         String date = inputDate.getText().toString();
 
+        //check empty fields
         if (name.isEmpty() || description.isEmpty() || location.isEmpty() || date.isEmpty()) {
 
             Toast.makeText(getContext(),
@@ -98,6 +89,7 @@ public class ReportLostFragment extends Fragment {
             return;
         }
 
+        // check date format
         if (!isValidDate(date)) {
 
             Toast.makeText(getContext(),
@@ -106,6 +98,7 @@ public class ReportLostFragment extends Fragment {
             return;
         }
 
+        // create lost item and keep it active
         Item item = new Item(
                 0,
                 name,
@@ -117,12 +110,14 @@ public class ReportLostFragment extends Fragment {
                 "active"
         );
 
+        // save item in db
         dbHelper.insertItem(item);
 
         Toast.makeText(getContext(),
                 "Lost item reported successfully",
                 Toast.LENGTH_LONG).show();
 
+        // clear fields after submit
         inputName.setText("");
         inputDescription.setText("");
         inputLocation.setText("");
@@ -134,12 +129,14 @@ public class ReportLostFragment extends Fragment {
 
     private boolean isValidDate(String date) {
 
+        // date should be like 25/05/2026
         if (date.length() != 10)
             return false;
 
         if (date.charAt(2) != '/' || date.charAt(5) != '/')
             return false;
 
+        // check numbers only except /
         for (int i = 0; i < date.length(); i++) {
             if (i != 2 && i != 5) {
                 if (date.charAt(i) < '0' || date.charAt(i) > '9')
@@ -172,6 +169,40 @@ public class ReportLostFragment extends Fragment {
         }
 
         return true;
+    }
+
+    //inner classes
+    private class PickImageHandler implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+
+            // open gallery
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
+
+            resultLauncher.launch(intent);
+        }
+    }
+
+    private class ImageResultHandler implements ActivityResultCallback<ActivityResult> {
+
+        @Override
+        public void onActivityResult(ActivityResult result) {
+
+            // get selected image
+            if (result.getData() != null) {
+
+                Uri imageUri = result.getData().getData();
+
+                imageLink = imageUri.toString();
+
+                // show selected image in screen
+                if (imagePreview != null) {
+                    imagePreview.setImageURI(imageUri);
+                }
+            }
+        }
     }
 
     private class ButtonHandler implements View.OnClickListener {

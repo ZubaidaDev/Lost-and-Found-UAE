@@ -12,9 +12,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //set main screen layout
         setContentView(R.layout.activity_main);
         setTitle("Lost and Found UAE");
 
+        //show search screen first when app starts
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, new SearchFragment())
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
+        //add menu items to action bar
         getMenuInflater().inflate(R.menu.main_menu, menu);
 
         return true;
@@ -33,11 +36,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
+        //get selected menu item id first
         int id = item.getItemId();
 
         if (id == R.id.menu_search) {
             setTitle("Lost and Found UAE");
 
+            // open search fg
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new SearchFragment())
                     .commit();
@@ -45,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.menu_report_lost) {
             setTitle("Report Lost Item");
 
+            //open lost item report fg
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new ReportLostFragment())
                     .commit();
@@ -52,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.menu_report_found) {
             setTitle("Report Found Item");
 
+            //open found item report fg
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new ReportFoundFragment())
                     .commit();
@@ -59,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.menu_admin_delete) {
             setTitle("Admin Delete");
 
+            //open admin delete fg
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new AdminDeleteFragment())
                     .commit();
@@ -66,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.menu_about) {
             setTitle("About");
 
+            // open about fragment
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new AboutFragment())
                     .commit();

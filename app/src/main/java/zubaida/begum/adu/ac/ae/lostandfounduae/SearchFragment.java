@@ -40,14 +40,13 @@ public class SearchFragment extends Fragment {
 
         dbHelper = new DatabaseHelper(getContext());
 
-        searchBtn.setOnClickListener(v -> {
-            String keyword = searchInput.getText().toString();
-            updateView(keyword, currentType);
-        });
+        SearchBtnHandler sbh = new SearchBtnHandler();
+        searchBtn.setOnClickListener(sbh);
 
-        allBtn.setOnClickListener(v -> updateView(searchInput.getText().toString(), "all"));
-        lostBtn.setOnClickListener(v -> updateView(searchInput.getText().toString(), "lost"));
-        foundBtn.setOnClickListener(v -> updateView(searchInput.getText().toString(), "found"));
+        FilterBtnHandler fbh = new FilterBtnHandler();
+        allBtn.setOnClickListener(fbh);
+        lostBtn.setOnClickListener(fbh);
+        foundBtn.setOnClickListener(fbh);
 
         updateView("", "all");
 
@@ -158,6 +157,29 @@ public class SearchFragment extends Fragment {
             itemLayout.addView(matchBtn);
 
             resultsLayout.addView(itemLayout, itemParams);
+        }
+    }
+
+    private class SearchBtnHandler implements View.OnClickListener { //inner class for search btn
+        @Override
+        public void onClick(View view) {
+            String keyword = searchInput.getText().toString();
+            updateView(keyword, currentType);
+        }
+    }
+
+    private class FilterBtnHandler implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            String keyword = searchInput.getText().toString();
+
+            if (view == allBtn) {
+                updateView(keyword, "all");
+            } else if (view == lostBtn) {
+                updateView(keyword, "lost");
+            } else if (view == foundBtn) {
+                updateView(keyword, "found");
+            }
         }
     }
 }
