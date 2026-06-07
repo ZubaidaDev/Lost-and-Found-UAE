@@ -12,13 +12,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //set main screen layout
+        // set main screen layout
         setContentView(R.layout.activity_main);
         setTitle("Lost and Found UAE");
 
         // show search screen first when app starts
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, new SearchFragment()).commit();
+        getSupportFragmentManager().beginTransaction() .add(R.id.myFragment, new SearchFragment()) .commit();
     }
 
     @Override
