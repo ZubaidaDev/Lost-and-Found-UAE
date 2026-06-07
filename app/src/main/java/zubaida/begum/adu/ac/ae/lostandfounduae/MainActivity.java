@@ -17,7 +17,8 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Lost and Found UAE");
 
         // show search screen first when app starts
-        getSupportFragmentManager().beginTransaction() .add(R.id.myFragment, new SearchFragment()) .commit();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.myFragment, new SearchFragment()).commit();
     }
 
     @Override
