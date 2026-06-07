@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -137,16 +137,8 @@ public class SearchFragment extends Fragment {
             else
                 matchBtn.setText("This Is Mine");
 
-            matchBtn.setOnClickListener(v -> {
-                int itemId = v.getId();
-                dbHelper.updateStatusById(itemId, "pending");
-
-                Toast.makeText(getContext(),
-                        "Request sent to admin for review",
-                        Toast.LENGTH_LONG).show();
-
-                updateView(lastKeyword, currentType);
-            });
+            MatchBtnHandler mbh = new MatchBtnHandler();
+            matchBtn.setOnClickListener(mbh);
 
             itemLayout.addView(nameTV);
             itemLayout.addView(typeTV);
@@ -180,6 +172,22 @@ public class SearchFragment extends Fragment {
             } else if (view == foundBtn) {
                 updateView(keyword, "found");
             }
+        }
+    }
+
+    private class MatchBtnHandler implements View.OnClickListener { //inner class for match btn
+        @Override
+        public void onClick(View view) {
+
+            int itemId = view.getId();
+
+            dbHelper.updateStatusById(itemId, "pending");
+
+            Toast.makeText(getContext(),
+                    "Request sent to admin for review",
+                    Toast.LENGTH_LONG).show();
+
+            updateView(lastKeyword, currentType);
         }
     }
 }

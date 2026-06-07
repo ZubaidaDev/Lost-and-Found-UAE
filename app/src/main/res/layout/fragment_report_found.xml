@@ -41,7 +41,7 @@
             android:padding="25dp">
 
             <EditText
-                android:id="@+id/input_item_name"
+                android:id="@+id/nameTxt"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:background="#FFFFFF"
@@ -51,7 +51,7 @@
                 android:inputType="text" />
 
             <EditText
-                android:id="@+id/input_description"
+                android:id="@+id/descriptionTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
@@ -64,7 +64,7 @@
                 android:inputType="text" />
 
             <EditText
-                android:id="@+id/input_location"
+                android:id="@+id/locationTxt"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:background="#FFFFFF"
@@ -75,7 +75,7 @@
                 android:inputType="text" />
 
             <EditText
-                android:id="@+id/input_date"
+                android:id="@+id/dateTxt"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:background="#FFFFFF"

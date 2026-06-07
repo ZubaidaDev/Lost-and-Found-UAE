@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 
 public class ReportLostFragment extends Fragment {
 
-    private EditText inputName, inputDescription, inputLocation, inputDate;
+    private EditText nameTxt, descriptionTxt, locationTxt, dateTxt;
 
     private Button btnSubmit;
     private Button btnPickImage;
@@ -49,10 +49,10 @@ public class ReportLostFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_report_lost, container, false);
 
-        inputName = view.findViewById(R.id.input_item_name);
-        inputDescription = view.findViewById(R.id.input_description);
-        inputLocation = view.findViewById(R.id.input_location);
-        inputDate = view.findViewById(R.id.input_date);
+        nameTxt = view.findViewById(R.id.nameTxt);
+        descriptionTxt = view.findViewById(R.id.descriptionTxt);
+        locationTxt = view.findViewById(R.id.locationTxt);
+        dateTxt = view.findViewById(R.id.dateTxt);
 
         btnSubmit = view.findViewById(R.id.btn_submit);
         btnPickImage = view.findViewById(R.id.btnPickImage);
@@ -75,10 +75,10 @@ public class ReportLostFragment extends Fragment {
     private void submitReport() {
 
         //get user input
-        String name = inputName.getText().toString();
-        String description = inputDescription.getText().toString();
-        String location = inputLocation.getText().toString();
-        String date = inputDate.getText().toString();
+        String name = nameTxt.getText().toString();
+        String description = descriptionTxt.getText().toString();
+        String location = locationTxt.getText().toString();
+        String date = dateTxt.getText().toString();
 
         //check empty fields
         if (name.isEmpty() || description.isEmpty() || location.isEmpty() || date.isEmpty()) {
@@ -118,10 +118,10 @@ public class ReportLostFragment extends Fragment {
                 Toast.LENGTH_LONG).show();
 
         // clear fields after submit
-        inputName.setText("");
-        inputDescription.setText("");
-        inputLocation.setText("");
-        inputDate.setText("");
+        nameTxt.setText("");
+        descriptionTxt.setText("");
+        locationTxt.setText("");
+        dateTxt.setText("");
 
         imagePreview.setImageDrawable(null);
         imageLink = "";
