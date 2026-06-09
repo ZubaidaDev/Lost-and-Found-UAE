@@ -17,8 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Lost and Found UAE");
 
         // show search screen first when app starts
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.myFragment, new SearchFragment()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.myFragment, new SearchFragment()).commit();
     }
 
     @Override
@@ -40,41 +39,31 @@ public class MainActivity extends AppCompatActivity {
             setTitle("Lost and Found UAE");
 
             // open search fg
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.myFragment, new SearchFragment())
-                    .commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.myFragment, new SearchFragment()).commit();
 
         } else if (id == R.id.menu_report_lost) {
             setTitle("Report Lost Item");
 
             //open lost item report fg
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.myFragment, new ReportLostFragment())
-                    .commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.myFragment, new ReportLostFragment()).commit();
 
         } else if (id == R.id.menu_report_found) {
             setTitle("Report Found Item");
 
             //open found item report fg
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.myFragment, new ReportFoundFragment())
-                    .commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.myFragment, new ReportFoundFragment()).commit();
 
         } else if (id == R.id.menu_admin_delete) {
             setTitle("Admin Delete");
 
             //open admin delete fg
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.myFragment, new AdminDeleteFragment())
-                    .commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.myFragment, new AdminDeleteFragment()).commit();
 
         } else if (id == R.id.menu_about) {
             setTitle("About");
 
             // open about fragment
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.myFragment, new AboutFragment())
-                    .commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.myFragment, new AboutFragment()).commit();
         }
 
         return true;
