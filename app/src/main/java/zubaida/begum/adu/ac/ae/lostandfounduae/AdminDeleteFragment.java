@@ -152,9 +152,7 @@ public class AdminDeleteFragment extends Fragment {
             implements RadioGroup.OnCheckedChangeListener {
 
         @Override
-        public void onCheckedChanged(
-                RadioGroup group,
-                int checkedId) {
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
 
             if (loggedIn) {// only admin can delete
 

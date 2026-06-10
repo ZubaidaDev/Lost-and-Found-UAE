@@ -148,7 +148,7 @@ public class ReportLostFragment extends Fragment {
         int month = Integer.parseInt(date.substring(3, 5));
         int year = Integer.parseInt(date.substring(6, 10));
 
-        if (year < 2000)
+        if (year < 2025)
             return false;
 
         if (month < 1 || month > 12)
