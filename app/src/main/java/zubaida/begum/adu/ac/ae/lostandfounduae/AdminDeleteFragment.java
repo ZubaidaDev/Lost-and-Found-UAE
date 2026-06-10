@@ -36,7 +36,7 @@ public class AdminDeleteFragment extends Fragment {
         loginBtn = view.findViewById(R.id.loginBtn);
         pendingLayout = view.findViewById(R.id.pendingLayout);
 
-        dbHelper = new DatabaseHelper(getContext());
+        dbHelper = new DatabaseHelper(getActivity());
 
         // login btn handler
         ButtonHandler bh = new ButtonHandler();
@@ -51,7 +51,7 @@ public class AdminDeleteFragment extends Fragment {
         pendingLayout.removeAllViews();
 
         // heading for pending list
-        TextView headingTV = new TextView(getContext());
+        TextView headingTV = new TextView(getActivity());
         headingTV.setText("Pending Items");
         headingTV.setTextSize(22);
         headingTV.setTypeface(null, Typeface.BOLD);
@@ -65,7 +65,7 @@ public class AdminDeleteFragment extends Fragment {
         if (items.isEmpty()) {
 
             // show msg if no pending items
-            TextView emptyTV = new TextView(getContext());
+            TextView emptyTV = new TextView(getActivity());
             emptyTV.setText("No pending items");
             emptyTV.setTextSize(18);
 
@@ -74,12 +74,12 @@ public class AdminDeleteFragment extends Fragment {
         }
 
         // radio group used to select item for delete
-        RadioGroup group = new RadioGroup(getContext());
+        RadioGroup group = new RadioGroup(getActivity());
 
         for (Item item : items) {
 
             // create radio btn for each pending item
-            RadioButton rb = new RadioButton(getContext());
+            RadioButton rb = new RadioButton(getActivity());
             rb.setId(item.getId());
 
             String text = item.getItemName();
@@ -98,7 +98,7 @@ public class AdminDeleteFragment extends Fragment {
             if (item.getImageLink() != null &&
                     !item.getImageLink().isEmpty()) {
 
-                ImageView imageView = new ImageView(getContext());
+                ImageView imageView = new ImageView(getActivity());
 
                 LinearLayout.LayoutParams imageParams =
                         new LinearLayout.LayoutParams(400, 400);
@@ -133,7 +133,7 @@ public class AdminDeleteFragment extends Fragment {
 
                 loggedIn = true;
 
-                Toast.makeText(getContext(),
+                Toast.makeText(getActivity(),
                         "Admin login successful",
                         Toast.LENGTH_LONG).show();
 
@@ -141,7 +141,7 @@ public class AdminDeleteFragment extends Fragment {
 
             } else {
 
-                Toast.makeText(getContext(),
+                Toast.makeText(getActivity(),
                         "Wrong password",
                         Toast.LENGTH_LONG).show();
             }
@@ -158,7 +158,7 @@ public class AdminDeleteFragment extends Fragment {
 
                 dbHelper.deleteById(checkedId);
 
-                Toast.makeText(getContext(),
+                Toast.makeText(getActivity(),
                         "Item deleted",
                         Toast.LENGTH_LONG).show();
 

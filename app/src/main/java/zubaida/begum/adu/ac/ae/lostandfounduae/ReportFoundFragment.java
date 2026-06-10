@@ -59,7 +59,7 @@ public class ReportFoundFragment extends Fragment {
 
         imagePreview = view.findViewById(R.id.imagePreview);
 
-        dbHelper = new DatabaseHelper(getContext());
+        dbHelper = new DatabaseHelper(getActivity());
 
         //btn to choose image
         PickImageHandler pih = new PickImageHandler();
@@ -83,7 +83,7 @@ public class ReportFoundFragment extends Fragment {
         // check empty fields
         if (name.isEmpty() || description.isEmpty() || location.isEmpty() || date.isEmpty()) {
 
-            Toast.makeText(getContext(),
+            Toast.makeText(getActivity(),
                     "Please fill all required fields",
                     Toast.LENGTH_LONG).show();
             return;
@@ -92,7 +92,7 @@ public class ReportFoundFragment extends Fragment {
         // check date format
         if (!isValidDate(date)) {
 
-            Toast.makeText(getContext(),
+            Toast.makeText(getActivity(),
                     "Date must be like 25/05/2026",
                     Toast.LENGTH_LONG).show();
             return;
@@ -113,7 +113,7 @@ public class ReportFoundFragment extends Fragment {
         //save item in database
         dbHelper.insertItem(item);
 
-        Toast.makeText(getContext(),
+        Toast.makeText(getActivity(),
                 "Found item reported successfully",
                 Toast.LENGTH_LONG).show();
 
