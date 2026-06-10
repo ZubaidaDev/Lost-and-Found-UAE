@@ -54,7 +54,7 @@ public class AdminDeleteFragment extends Fragment {
         TextView headingTV = new TextView(getContext());
         headingTV.setText("Pending Items");
         headingTV.setTextSize(22);
-        headingTV.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        headingTV.setTypeface(null, Typeface.BOLD);
         headingTV.setPadding(0, 10, 0, 20);
 
         pendingLayout.addView(headingTV);
@@ -64,7 +64,7 @@ public class AdminDeleteFragment extends Fragment {
 
         if (items.isEmpty()) {
 
-            // show message if no pending items
+            // show msg if no pending items
             TextView emptyTV = new TextView(getContext());
             emptyTV.setText("No pending items");
             emptyTV.setTextSize(18);
