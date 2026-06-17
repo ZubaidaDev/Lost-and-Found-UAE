@@ -145,30 +145,6 @@ git commit -m "Write what you changed"
 git push
 ```
 
-Example:
-
-```bash
-git add .
-git commit -m "Added report lost item screen"
-git push
-```
-
----
-
-## Important Team Rules
-
-1. Always use `git pull` before editing files.
-2. Always use `git push` after finishing your part.
-3. Write a clear commit message.
-4. Do not edit the same file at the same time as another member.
-5. Do not delete another member's file.
-6. Tell the group before editing shared files like:
-   - MainActivity.java
-   - DatabaseHelper.java
-   - AndroidManifest.xml
-7. Test the app before pushing.
-8. If there is an error, tell the group before changing many files.
-
 ---
 
 ## Suggested Screens
@@ -178,27 +154,4 @@ git push
 3. Report Found Item Screen
 4. Search Results Screen
 5. Item Details Screen
-6. About Screen
-
----
-
-## Final Submission Checklist
-
-Before submitting, make sure the project includes:
-
-- Android project files
-- Java files
-- XML files
-- SQLite database code
-- Screenshots of app output
-- Final report
-- Google Drive video link
-- Compressed project folder
-
----
-
-## Final Notes
-
-One group member will submit the final compressed project file through Blackboard.
-
-All members must understand their own part because a live demonstration will be required.
+6. About Scree
