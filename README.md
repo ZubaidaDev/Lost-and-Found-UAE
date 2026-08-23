@@ -1,10 +1,10 @@
-Lost and Found UAE
+# Lost and Found UAE
 
 Lost and Found UAE is a native Android application for reporting, searching, and managing lost and found items.
 
 The application provides a simple local platform where users can submit lost or found item reports, browse existing listings, search for possible matches, and send matching items for review.
 
-Features
+## Features
 
 * Report lost and found items
 * Add item name, description, location, date, and image
@@ -16,17 +16,18 @@ Features
 * Remove resolved items from the database
 * Input and date validation
 
-Tech Stack
+## Tech Stack
 
-* Java
-* Android SDK
-* XML
-* SQLite
-* Android Fragments
-* Gradle
+* **Java**
+* **Android SDK**
+* **XML**
+* **SQLite**
+* **Android Fragments**
+* **Gradle**
 
-Application Flow
+## Application Flow
 
+```text
 Report Lost / Found Item
           |
           v
@@ -43,11 +44,13 @@ Report Lost / Found Item
           |
           v
    Admin Resolution
+```
 
-Items are stored locally with either an active or pending status. Active items are available through search, while potential matches can be moved to pending status for review.
+Items are stored locally with either an `active` or `pending` status. Active items are available through search, while potential matches can be moved to pending status for review.
 
-Project Structure
+## Project Structure
 
+```text
 app/src/main/
 ├── java/.../lostandfounduae/
 │   ├── MainActivity.java
@@ -65,22 +68,25 @@ app/src/main/
 │   └── values/
 │
 └── AndroidManifest.xml
+```
 
-Requirements
+## Requirements
 
 * Android Studio
 * Android SDK 24 or later
 * Java 11 compatible environment
 
-Getting Started
+## Getting Started
 
 Clone the repository:
 
+```bash
 git clone https://github.com/ZubaidaDev/Lost-and-Found-UAE.git
+```
 
 Open the project in Android Studio, allow Gradle to sync the dependencies, and run the application using an Android emulator or physical device.
 
-Current Scope
+## Current Scope
 
 The application uses local SQLite storage and is intended as a functional Android prototype.
 
