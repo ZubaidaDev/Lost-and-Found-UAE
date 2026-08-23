@@ -1,157 +1,87 @@
-# Lost and Found UAE
+Lost and Found UAE
 
-Mobile Application Development Group Project
+Lost and Found UAE is a native Android application for reporting, searching, and managing lost and found items.
 
-## Project Idea
+The application provides a simple local platform where users can submit lost or found item reports, browse existing listings, search for possible matches, and send matching items for review.
 
-Lost and Found UAE is an Android mobile application that allows users to report lost items and found items.
+Features
 
-Users can:
-- Report a lost item
-- Report a found item
-- Search for items
-- View item details
+* Report lost and found items
+* Add item name, description, location, date, and image
+* Browse active lost and found reports
+* Search by name, description, or location
+* Filter results by lost or found items
+* Submit potential item matches for review
+* Review pending matches through an admin interface
+* Remove resolved items from the database
+* Input and date validation
 
-This project will use:
-- Java
-- XML
-- SQLite Database
+Tech Stack
 
----
+* Java
+* Android SDK
+* XML
+* SQLite
+* Android Fragments
+* Gradle
 
-## Development Platform
+Application Flow
 
-We will use Android Studio to build and test the application.
+Report Lost / Found Item
+          |
+          v
+     SQLite Database
+          |
+          v
+ Search & Filter Items
+          |
+          v
+ Submit Match Request
+          |
+          v
+     Pending Review
+          |
+          v
+   Admin Resolution
 
-GitHub will be used to share the project files and manage teamwork.
+Items are stored locally with either an active or pending status. Active items are available through search, while potential matches can be moved to pending status for review.
 
-GitHub Codespaces is not required because Android apps are easier to develop and test using Android Studio with an emulator or a real Android phone.
+Project Structure
 
----
+app/src/main/
+├── java/.../lostandfounduae/
+│   ├── MainActivity.java
+│   ├── SearchFragment.java
+│   ├── ReportLostFragment.java
+│   ├── ReportFoundFragment.java
+│   ├── AdminDeleteFragment.java
+│   ├── AboutFragment.java
+│   ├── DatabaseHelper.java
+│   └── Item.java
+│
+├── res/
+│   ├── layout/
+│   ├── menu/
+│   └── values/
+│
+└── AndroidManifest.xml
 
-## Team Work Plan
+Requirements
 
-### Person 1: Search Screen
+* Android Studio
+* Android SDK 24 or later
+* Java 11 compatible environment
 
-Responsible for:
-- Main app screen
-- Menu navigation
-- Search screen
-- Search button logic
-- Connecting screens together
+Getting Started
 
-Files:
-- MainActivity.java
-- SearchFragment.java
-- activity_main.xml
-- fragment_search.xml
-- main_menu.xml
+Clone the repository:
 
----
+git clone https://github.com/ZubaidaDev/Lost-and-Found-UAE.git
 
-### Person 2: Database and Adapter
+Open the project in Android Studio, allow Gradle to sync the dependencies, and run the application using an Android emulator or physical device.
 
-Responsible for:
-- SQLite database
-- Item model class
-- Search results display
-- Adapter for showing items
-- Manifest setup
+Current Scope
 
-Files:
-- DatabaseHelper.java
-- ItemAdapter.java
-- Item.java
-- AndroidManifest.xml
-- item_result.xml
+The application uses local SQLite storage and is intended as a functional Android prototype.
 
----
-
-### Person 3: Report Lost and Found
-
-Responsible for:
-- Report Lost form
-- Report Found form
-- Taking user input
-- Sending form data to the database
-- Helping with screenshots, report, and video demonstration
-
-Files:
-- ReportLostFragment.java
-- ReportFoundFragment.java
-- fragment_report_lost.xml
-- fragment_report_found.xml
-
----
-
-## Balance Check
-
-| Person | Java Files | XML Files | Total |
-|---|---:|---:|---:|
-| Person 1 | 2 | 3 | 5 |
-| Person 2 | 3 | 2 | 5 |
-| Person 3 | 2 | 2 | 4 |
-
-This division is simple and balanced enough for a student-level project.
-
----
-
-## App Menu Structure
-
-The app will use a 3 dots menu with these options:
-
-```text
-Menu
-├── Report Lost
-├── Report Found
-├── Search
-└── About
-```
-
----
-
-## App Flow
-
-```text
-Report Lost → Save to SQLite
-Report Found → Save to SQLite
-Search → Read from SQLite
-Search Result → Show item details
-```
-
----
-
-## GitHub Workflow
-
-### Before starting work
-
-Always pull the latest version first:
-
-```bash
-git pull
-```
-
-This updates your laptop with the latest files from GitHub.
-
----
-
-### After finishing work
-
-Save your changes, then push your work to GitHub:
-
-```bash
-git add .
-git commit -m "Write what you changed"
-git push
-```
-
----
-
-## Suggested Screens
-
-1. Home / Search Screen
-2. Report Lost Item Screen
-3. Report Found Item Screen
-4. Search Results Screen
-5. Item Details Screen
-6. About Scree
+It currently does not include cloud synchronization, user accounts, remote databases, or production-grade authentication.
